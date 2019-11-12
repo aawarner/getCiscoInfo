@@ -18,18 +18,20 @@ def getLoginInfo(csvFile):
 
 
 def convertLoginDict(data):
+    """
+    Converts list of dictionaries to list of lists
+    """
     swlist = [[row["ipaddr"], row["username"], row["password"]] for row in data]
     return swlist
 
 
 def getDevInfo(ip, user, pwd):
     """
-        Function logs in to Cisco Switch and executes
-        'show inventory' and 'show license right-to-use summary' on each device.
-        Parses out serial number & technology package & writes them to CSV file
-        device_info.csv.
+    Function logs in to Cisco Switch and executes
+    'show inventory' and 'show license right-to-use summary' on each device.
+    Parses out serial number & technology package & writes them to CSV file
+    device_info.csv.
     """
-
     session = {
         "device_type": "cisco_ios",
         "ip": ip,
@@ -38,7 +40,6 @@ def getDevInfo(ip, user, pwd):
         "verbose": False,
     }
     try:
-        # Start the session, enable, send the commands, capture terminal output and remove the connections
         print("Connecting to switch {switch}".format(switch=ip))
         conn = netmiko.ConnectHandler(**session)
         sn = conn.send_command("show inventory")
@@ -75,7 +76,6 @@ def main(args):
         start_time = datetime.now()
 
         # Define the number of threads
-
         num_threads = int(sys.argv[2])
         pool = ThreadPool(num_threads)
 
