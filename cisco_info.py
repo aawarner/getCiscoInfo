@@ -68,7 +68,7 @@ def getDevInfo(ip, user, pwd):
 
         tech = conn.send_command("show license right-to-use summary")
         tech = tech.split()
-        tech = tech[-1]
+        tech = tech[6]
 
         devdata = [sn, tech]
 
