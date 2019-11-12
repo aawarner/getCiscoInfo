@@ -7,20 +7,18 @@ IOS-XE 16.8 and below.
   * [Supported platforms](#supported-platforms)
   * [Requirements](#requirements)
   * [Usage](#usage)
-  * [Operation](#operation)
-  * [Contributing](#contributing)
 
-##Supported platforms
+## Supported platforms
 Cisco IOS-XE 16.8 and below
 
-##Requirements
+## Requirements
 Relies on Netmiko library
 
 ```
 pip install netmiko
 ```
 
-##Usage
+## Usage
 ```
 Usage: python get_info.py example.csv X
 ```
@@ -37,4 +35,3 @@ ipaddr,username,password
 This can be seen in example.csv
 
 The 'X' represents the number of threads to execute.
-
