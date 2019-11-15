@@ -41,8 +41,16 @@ def convertLoginDict(data):
     """
     Converts list of dictionaries to list of lists
     """
-    swlist = [[row["ipaddr"], row["username"], row["password"]] for row in data]
-    return swlist
+    try:
+        swlist = [[row["ipaddr"], row["username"], row["password"]] for row in data]
+        return swlist
+    except KeyError:
+        print("\nInvalid header in CSV file. Please modify to the format below: "
+              "\nipaddr,username,password"
+              "\n10.10.10.10,admin,cisco"
+              "\n10.10.10.11,admin,cisco\n"
+              )
+        sys.exit()
 
 
 def getDevInfo(ip, user, pwd):
