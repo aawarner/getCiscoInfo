@@ -70,15 +70,17 @@ def getDevInfo(ip, user, pwd):
     try:
         print("Connecting to switch {switch}".format(switch=ip))
         conn = netmiko.ConnectHandler(**session)
-        sn = conn.send_command("show inventory")
-        sn = sn.split()
-        sn = sn[13]
+        info = conn.send_command("show inventory")
+        info = info.split()
+        sn = info[13]
+
+        pid = info[7]
 
         tech = conn.send_command("show license right-to-use summary")
         tech = tech.split()
         tech = tech[6]
 
-        devdata = [sn, tech]
+        devdata = [pid, sn, tech]
 
         print("Collection successful from switch {switch}".format(switch=ip))
 
@@ -100,6 +102,11 @@ def getDevInfo(ip, user, pwd):
 
 def main(args):
     try:
+        title = ["Product ID", "Serial Number", "License Entitlement"]
+        with open("device_info.csv", "w+") as devFile:
+            devwriter = csv.writer(devFile)
+            devwriter.writerow(title)
+
         # Define start time
         start_time = datetime.now()
 
