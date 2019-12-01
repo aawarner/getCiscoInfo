@@ -9,7 +9,7 @@ IOS-XE 16.8 and below.
   * [Usage](#usage)
 
 ## Supported platforms
-Cisco IOS-XE 16.8 and below
+Cisco Catalyst Switches running IOS-XE 16.8 and below
 
 ## Requirements
 Relies on Netmiko library
