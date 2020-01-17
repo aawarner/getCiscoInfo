@@ -1,8 +1,7 @@
 # getCiscoInfo
 
 This program is designed to retrieve the serial number
-and license entitlement for Cisco Catalyst switches running
-IOS-XE 16.8 and below.
+and license entitlement for Cisco Catalyst switches.
 
   * [Supported platforms](#supported-platforms)
   * [Requirements](#requirements)
