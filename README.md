@@ -8,7 +8,7 @@ and license entitlement for Cisco Catalyst switches.
   * [Usage](#usage)
 
 ## Supported platforms
-Cisco Catalyst Switches running IOS-XE 16.8 and below
+Cisco Catalyst Switches running IOS-XE. Tested on Catalyst 3850 and Catalyst 9300.
 
 ## Requirements
 Relies on Netmiko library
