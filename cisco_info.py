@@ -23,6 +23,7 @@ import csv
 from multiprocessing.dummy import Pool as ThreadPool
 import netmiko
 import sys
+import re
 
 
 def getLoginInfo(csvFile):
@@ -70,15 +71,13 @@ def getDevInfo(ip, user, pwd):
     try:
         print("Connecting to switch {switch}".format(switch=ip))
         conn = netmiko.ConnectHandler(**session)
-        info = conn.send_command("show inventory")
-        info = info.split()
-        sn = info[13]
-
-        pid = info[7]
-
-        tech = conn.send_command("show license right-to-use summary")
-        tech = tech.split()
-        tech = tech[6]
+        info = conn.send_command("show version")
+        sn = re.search(r"(?=.*\d{3})[A-Z]{3}[A-Za-z0-9]{8}", info)
+        sn = sn.group(0)
+        pid = re.search(r"C9[356]00.+?(?=\s)|[A-Z]{2}.[A-Z][0-9]{4}.+?(?=\s)", info)
+        pid = pid.group(0)
+        tech = re.search(r"network-.+?(?=\s)|ipservicesk9|ipbasek9|lanbasek9", info)
+        tech = tech.group(0)
 
         devdata = [pid, sn, tech]
 
@@ -98,6 +97,9 @@ def getDevInfo(ip, user, pwd):
         netmiko.NetMikoAuthenticationException,
     ) as e:
         print(e)
+
+    except AttributeError:
+        print("Regex match error. Missing info for device {switch}".format(switch=ip))
 
 
 def main(args):
